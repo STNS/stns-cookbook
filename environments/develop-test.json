@@ -1,0 +1,32 @@
+{
+  "name": "develop-test",
+  "description": "This test environment",
+  "override_attributes": {
+    "stns": {
+      "server": {
+        "users": [
+          {
+            "name": "pyama",
+            "id": 1001,
+            "gecos": "pyama",
+            "group_id": 1001,
+            "directory": "/home/pyama",
+            "shell": "/bin/bash",
+            "keys": ["ssh-rsa xxxxxx"]
+          }
+        ],
+        "groups": [
+          {
+            "name": "pgroup1",
+            "id": 1001,
+            "users": ["pyama"]
+          },
+          {
+            "name": "pgroup2",
+            "id": 1002
+          }
+        ]
+      }
+    }
+  }
+}
