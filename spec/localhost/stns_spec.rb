@@ -4,6 +4,7 @@ require 'spec_helper'
   start
   restart
   reload
+  checkconf
 ).each do |cmd|
   describe command("service stns #{cmd}") do
       its(:exit_status) { should eq 0 }
