@@ -1,29 +1,20 @@
 require 'spec_helper'
-%w(
-  stns
-  rsyslog
-).each do |s|
-  %w(
-    start
-    restart
-  ).each do |cmd|
-    describe command("service #{s} #{cmd}") do
-        its(:exit_status) { should eq 0 }
-    end
 
-    describe service(s) do
-        it { should be_running }
-    end
+%w(
+  start
+  restart
+  reload
+).each do |cmd|
+  describe command("service stns #{cmd}") do
+      its(:exit_status) { should eq 0 }
   end
 end
 
-describe command("service stns reload") do
-    its(:exit_status) { should eq 0 }
+describe service('stns') do
+  it { should be_running }
+  it { should be_running }
 end
 
-describe service("stns") do
-    it { should be_running }
-end
 
 [
   "getent passwd",

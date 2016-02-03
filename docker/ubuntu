@@ -2,4 +2,5 @@ FROM pyama/ubuntu:stns_test
 ADD . /tmp
 WORKDIR /tmp
 RUN chef-client -z -o 'recipe[stns::server],recipe[stns::client]' -E develop-test -c .chef/client.rb
-CMD service rsyslog start; service stns start;service nscd start;bundle exec rake spec
+RUN bundle install --path=vendor/bundle --binstubs --without development berks --jobs 4
+CMD service rsyslog start;service stns start;service nscd start;bin/rake spec

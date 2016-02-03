@@ -1,5 +1,6 @@
 # A sample Gemfile
 source 'https://rubygems.org'
+gem 'rake'
 
 group :development do
   gem 'chef'
@@ -11,6 +12,4 @@ end
 
 group :test do
   gem 'serverspec'
-  gem 'rake-chef-syntax'
-  gem 'rake-foodcritic'
 end

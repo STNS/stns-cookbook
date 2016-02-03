@@ -1,4 +1,4 @@
-eval $(docker-machine env dev)  
+eval $(docker-machine env dev)
 docker build -f docker/ubuntu -t ubuntu:stns_test .
 docker build -f docker/rhel -t centos:stns_test .
 

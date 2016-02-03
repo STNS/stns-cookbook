@@ -1,11 +1,8 @@
 require 'rake'
 require 'rspec/core/rake_task'
-require 'rake-foodcritic'
-require 'rake-chef-syntax'
 
 task :spec    => 'spec:all'
 task :default => :spec
-task :chef    => 'chef:tests'
 
 namespace :spec do
   targets = []
@@ -27,8 +24,4 @@ namespace :spec do
       t.pattern = "spec/#{original_target}/*_spec.rb"
     end
   end
-end
-
-namespace :chef do
-  task :tests => [:foodcritic, :syntax_check]
 end
