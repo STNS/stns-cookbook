@@ -1,8 +1,5 @@
-FROM ubuntu:15.10
-RUN apt-get update;apt-get install software-properties-common python-software-properties;apt-add-repository ppa:brightbox/ruby-ng
-RUN apt-get update;apt-get install -y wget git vim dpkg-dev libffi-dev libffi6 gcc ruby2.2 ruby2.2-dev
+FROM pyama/ubuntu:stns_test
 ADD . /tmp
 WORKDIR /tmp
-RUN bundle install --path=vendor/bundle
-RUN chef-client -z -o 'recipe[server]'
+RUN chef-client -z -o 'recipe[stns::server],recipe[stns::client]' -E develop-test -c .chef/client.rb
 CMD service rsyslog start; service stns start;service nscd start;bundle exec rake spec

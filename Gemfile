@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 
 group :development do
   gem 'chef'
-  gem 'ffi-yajl'
 end
 
 group :berks do

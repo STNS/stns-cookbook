@@ -30,5 +30,5 @@ namespace :spec do
 end
 
 namespace :chef do
-    task :tests => [:foodcritic, :syntax_check]
+  task :tests => [:foodcritic, :syntax_check]
 end

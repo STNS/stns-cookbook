@@ -232,7 +232,6 @@ PLATFORMS
 DEPENDENCIES
   berkshelf
   chef
-  ffi-yajl
   rake-chef-syntax
   rake-foodcritic
   serverspec

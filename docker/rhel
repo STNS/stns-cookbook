@@ -3,6 +3,6 @@ RUN yum -y install curl sudo
 RUN sed -i 's/Defaults    requiretty//g' /etc/sudoers
 ADD . /tmp
 WORKDIR /tmp
-RUN /root/.rbenv/shims/bundle install --path=vendor/bundle
+RUN /root/.rbenv/shims/bundle install --path=vendor/bundle --without development berks --jobs 4
 RUN chef-client -z -o 'recipe[stns::server],recipe[stns::client]' -E develop-test -c .chef/client.rb
 CMD service rsyslog start; service stns start;service nscd start;/root/.rbenv/shims/bundle exec rake spec
