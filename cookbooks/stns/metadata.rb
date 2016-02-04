@@ -1,7 +1,0 @@
-name             'stns'
-maintainer       'pyama86'
-maintainer_email 'www.kazu.com@gmail.com'
-license          'All rights reserved'
-description      'Installs/Configures stns'
-version          '0.1.0'
-depends          'nscd'

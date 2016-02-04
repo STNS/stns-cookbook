@@ -1,2 +1,5 @@
 /vendor
+/environments
+/bin
 .bundle
+*.lock
