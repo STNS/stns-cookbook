@@ -4,6 +4,13 @@ RUN yum -y install curl sudo
 RUN sed -i 's/Defaults    requiretty//g' /etc/sudoers
 ADD . /tmp
 WORKDIR /tmp
+RUN rm -rf cookbooks && \
+mkdir -p cookbooks/stns && \
+mv  attributes cookbooks/stns && \
+mv  recipes cookbooks/stns && \
+mv  templates cookbooks/stns && \
+mv  files cookbooks/stns && \
+mv  metadata.rb cookbooks/stns
 RUN bundle install --path=vendor/bundle --binstubs --without development berks --jobs 4
 RUN chef-client -z -o 'recipe[stns::server],recipe[stns::client]' -E develop-test -c .chef/client.rb
 CMD service rsyslog start;service stns start;service nscd start;bin/rake spec
