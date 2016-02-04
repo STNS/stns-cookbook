@@ -4,7 +4,7 @@ default['stns']['server']['include'] = "/etc/stns/conf.d/*"
 default['stns']['server']['users'] = [{}]
 default['stns']['server']['groups'] = [{}]
 
-default['stns']['client']['api_end_point'] = 'http://localhost:1104'
+default['stns']['client']['api_end_point'] = ['http://localhost:1104']
 default['stns']['client']['chain_ssh_wrapper'] = nil
 
 %w(passwd group).each do |s|

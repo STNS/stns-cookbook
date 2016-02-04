@@ -58,9 +58,9 @@ default['stns']['server']['groups'] = [
   </tr>
   <tr>
     <td><tt>['stns']['client']['api_end_point']</tt></td>
-    <td>string</td>
+    <td>string array</td>
     <td>stns end point</td>
-    <td><tt>http://localhost:1104</tt></td>
+    <td><tt>[http://localhost:1104]</tt></td>
   </tr>
   <tr>
     <td><tt>['stns']['clietn']['chain_ssh_wrapper']</tt></td>
