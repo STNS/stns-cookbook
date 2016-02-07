@@ -63,7 +63,7 @@ default['stns']['server']['groups'] = [
     <td><tt>[http://localhost:1104]</tt></td>
   </tr>
   <tr>
-    <td><tt>['stns']['clietn']['chain_ssh_wrapper']</tt></td>
+    <td><tt>['stns']['client']['chain_ssh_wrapper']</tt></td>
     <td>string</td>
     <td>fail over ssh wrapper</td>
     <td><tt></tt></td>
