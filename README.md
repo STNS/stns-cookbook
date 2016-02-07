@@ -1,4 +1,4 @@
-server Cookbook
+STNS Cookbook
 ===============
 stns instarll cookbook
 
