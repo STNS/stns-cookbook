@@ -1,10 +1,14 @@
 default['stns']['server']['port'] = 1104
 default['stns']['server']['include'] = "/etc/stns/conf.d/*"
+default['stns']['server']['user'] = ""
+default['stns']['server']['password'] = ""
 
 default['stns']['server']['users'] = [{}]
 default['stns']['server']['groups'] = [{}]
 
 default['stns']['client']['api_end_point'] = ['http://localhost:1104']
+default['stns']['client']['user'] = ""
+default['stns']['client']['password'] = ""
 default['stns']['client']['chain_ssh_wrapper'] = nil
 default['stns']['client']['ssl_verify'] = true
 

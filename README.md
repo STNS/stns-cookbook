@@ -19,10 +19,16 @@ Attributes
     <td><tt>1104</tt></td>
   </tr>
   <tr>
-    <td><tt>['stns']['server']['include']</tt></td>
+    <td><tt>['stns']['server']['user']</tt></td>
     <td>string</td>
-    <td>include configure</td>
-    <td><tt>/etc/stns/conf.d/*</tt></td>
+    <td>Basic Auth User</td>
+    <td><tt></tt></td>
+  </tr>
+  <tr>
+    <td><tt>['stns']['server']['password']</tt></td>
+    <td>string</td>
+    <td>Basic Auth Password</td>
+    <td><tt></tt></td>
   </tr>
   <tr>
     <td><tt>['stns']['server']['users']</tt></td>
@@ -61,6 +67,18 @@ default['stns']['server']['groups'] = [
     <td>string array</td>
     <td>stns end point</td>
     <td><tt>[http://localhost:1104]</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['stns']['client']['user']</tt></td>
+    <td>string</td>
+    <td>Basic Auth User</td>
+    <td><tt></tt></td>
+  </tr>
+  <tr>
+    <td><tt>['stns']['client']['password']</tt></td>
+    <td>string</td>
+    <td>Basic Auth Password</td>
+    <td><tt></tt></td>
   </tr>
   <tr>
     <td><tt>['stns']['client']['chain_ssh_wrapper']</tt></td>
