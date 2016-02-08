@@ -1,3 +1,3 @@
 api_end_point = <%= node['stns']['client']['api_end_point'] %>
 chain_ssh_wrapper = "<%= node['stns']['client']['chain_ssh_wrapper'] %>"
-ssl_verify = "<%= node['stns']['client']['ssl_verify'] %>"
+ssl_verify = <%= node['stns']['client']['ssl_verify'] %>
