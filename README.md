@@ -68,6 +68,12 @@ default['stns']['server']['groups'] = [
     <td>fail over ssh wrapper</td>
     <td><tt></tt></td>
   </tr>
+  <tr>
+    <td><tt>['stns']['client']['ssl_verify']</tt></td>
+    <td>bool</td>
+    <td>disable ssl verify</td>
+    <td><tt>true</tt></td>
+  </tr>
 </table>
 
 #### ref cookbooks
