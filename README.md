@@ -81,6 +81,12 @@ default['stns']['server']['groups'] = [
     <td><tt></tt></td>
   </tr>
   <tr>
+    <td><tt>['stns']['client']['wrapper_path']</tt></td>
+    <td>string</td>
+    <td>stns query wrapper path</td>
+    <td><tt>/usr/local/bin/stns-query-wrapper</tt></td>
+  </tr>
+  <tr>
     <td><tt>['stns']['client']['chain_ssh_wrapper']</tt></td>
     <td>string</td>
     <td>fail over ssh wrapper</td>
