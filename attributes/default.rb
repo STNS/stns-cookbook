@@ -11,6 +11,7 @@ default['stns']['client']['user'] = ""
 default['stns']['client']['password'] = ""
 default['stns']['client']['chain_ssh_wrapper'] = nil
 default['stns']['client']['ssl_verify'] = true
+default['stns']['client']['wrapper_path'] = "/usr/local/bin/stns-query-wrapper"
 
 %w(passwd group).each do |s|
   default['nscd'][s]['enable_cache'] = 'yes'

@@ -44,6 +44,6 @@ end
   end
 end
 
-describe command("/usr/local/bin/ssh_stns_wrapper pyama") do
+describe command("/usr/local/bin/stns-key-wrapper pyama") do
   its(:stdout) { should match /ssh-rsa xxxxxx/ }
 end
