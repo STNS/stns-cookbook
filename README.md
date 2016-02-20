@@ -1,6 +1,6 @@
 STNS Cookbook
 ===============
-stns instarll cookbook
+stns install cookbook
 
 Attributes
 ----------
