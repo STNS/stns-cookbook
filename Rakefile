@@ -2,7 +2,18 @@ require 'rake'
 require 'rspec/core/rake_task'
 
 task :spec    => 'spec:all'
-task :default => :spec
+task :default => :test
+
+task "build" do
+  sh "docker build --rm --no-cache -f docker/ubuntu -t ubuntu:stns_test ."
+  sh "docker build --rm --no-cache -f docker/rhel -t centos:stns_test ."
+end
+
+desc "all test"
+task "test" => [:build]  do
+  sh "docker run -t ubuntu:stns_test"
+  sh "docker run -t centos:stns_test"
+end
 
 namespace :spec do
   targets = []
