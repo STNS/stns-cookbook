@@ -1,3 +1,5 @@
+
+default['stns']['repo'] = 'https://repo.stns.jp'
 default['stns']['server']['port'] = 1104
 default['stns']['server']['include'] = "/etc/stns/conf.d/*"
 default['stns']['server']['user'] = ""
