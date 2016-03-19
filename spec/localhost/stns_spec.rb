@@ -105,7 +105,8 @@ end
 end
 
 describe command("/usr/local/bin/stns-key-wrapper example4") do
-  its(:stdout) { should match /ssh-rsa x.*ssh-rsa y/m }
+  its(:stdout) { should match /ssh-rsa x/ }
+  its(:stdout) { should match /ssh-rsa y/ }
 end
 
 [
