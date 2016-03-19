@@ -8,7 +8,7 @@ when 'debian', 'ubuntu'
 end
 
 execute 'install_repo' do
-  command "curl -fsSL https://repo.stns.jp/scripts/#{shell} | sh"
+  command "curl -fsSL #{node['stns']['repo']}/scripts/#{shell} | sh"
   not_if "test -e #{repo_file}"
 end
 
