@@ -134,7 +134,7 @@ end
   "getent group test_group5"
 ].each do |cmd|
   describe command(cmd) do
-    its(:stdout) { should match /test_group5:x:1005:example5/ }
+    its(:stdout) { should match /test_group5:x:1005:/ }
   end
 end
 
