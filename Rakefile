@@ -6,13 +6,15 @@ task :default => :test
 
 task "build" do
   sh "docker build --rm --no-cache -f docker/ubuntu -t ubuntu:stns_test ."
-  sh "docker build --rm --no-cache -f docker/rhel -t centos:stns_test ."
+  sh "docker build --rm --no-cache -f docker/centos -t centos:stns_test ."
+  sh "docker build --rm --no-cache -f docker/ubuntu_32 -t ubuntu:stns_test_32 ."
 end
 
 desc "all test"
 task "test" => [:build]  do
   sh "docker run -t ubuntu:stns_test"
   sh "docker run -t centos:stns_test"
+  sh "docker run -t ubuntu:stns_test_32"
 end
 
 namespace :spec do

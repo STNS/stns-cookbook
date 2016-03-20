@@ -1,0 +1,14 @@
+FROM pyama/centos:6-i386
+ADD . /tmp
+WORKDIR /tmp
+RUN sed -i 's/Defaults    requiretty//g' /etc/sudoers
+RUN rm -rf cookbooks && \
+mkdir -p cookbooks/stns && \
+mv  attributes cookbooks/stns && \
+mv  recipes cookbooks/stns && \
+mv  templates cookbooks/stns && \
+mv  files cookbooks/stns && \
+mv  metadata.rb cookbooks/stns
+RUN chef-client -z -o 'recipe[stns::server],recipe[stns::client]' -E develop-test -c .chef/client.rb
+RUN /bin/bash -lc 'bundle install --path=vendor/bundle --binstubs --without development berks --jobs 4'
+CMD service rsyslog start;service stns start;service nscd start;bin/rake spec
