@@ -1,9 +1,8 @@
-FROM pyama/centos:stns_test
+FROM stns:centos-x86
 RUN yum -y install curl sudo rsyslog
-ENV PATH /root/.rbenv/shims:$PATH
-RUN sed -i 's/Defaults    requiretty//g' /etc/sudoers
 ADD . /tmp
 WORKDIR /tmp
+RUN sed -i 's/Defaults    requiretty//g' /etc/sudoers
 RUN rm -rf cookbooks && \
 mkdir -p cookbooks/stns && \
 mv  attributes cookbooks/stns && \

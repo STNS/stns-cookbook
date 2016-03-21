@@ -5,16 +5,20 @@ task :spec    => 'spec:all'
 task :default => :test
 
 task "build" do
-  sh "docker build --rm --no-cache -f docker/ubuntu -t ubuntu:stns_test ."
-  sh "docker build --rm --no-cache -f docker/centos -t centos:stns_test ."
-  sh "docker build --rm --no-cache -f docker/ubuntu_32 -t ubuntu:stns_test_32 ."
+  %w(centos ubuntu).each do |o|
+    %w(x86 i386).each do |a|
+      sh "docker build --rm --no-cache -f docker/#{o}-#{a}  -t #{o}:#{a}-spec ."
+    end
+  end
 end
 
 desc "all test"
 task "test" => [:build]  do
-  sh "docker run -t ubuntu:stns_test"
-  sh "docker run -t centos:stns_test"
-  sh "docker run -t ubuntu:stns_test_32"
+  %w(centos ubuntu).each do |o|
+    %w(x86 i386).each do |a|
+      sh "docker run -t #{o}:#{a}-spec"
+    end
+  end
 end
 
 namespace :spec do
