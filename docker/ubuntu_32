@@ -1,4 +1,5 @@
 FROM pyama/go:32bit
+RUN apt-get install -y rsyslog
 ADD . /tmp
 WORKDIR /tmp
 RUN rm -rf cookbooks && \

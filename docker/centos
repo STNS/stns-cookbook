@@ -1,6 +1,6 @@
 FROM pyama/centos:stns_test
+RUN yum -y install curl sudo rsyslog
 ENV PATH /root/.rbenv/shims:$PATH
-RUN yum -y install curl sudo
 RUN sed -i 's/Defaults    requiretty//g' /etc/sudoers
 ADD . /tmp
 WORKDIR /tmp

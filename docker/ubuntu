@@ -1,4 +1,5 @@
 FROM pyama/ubuntu:stns_test
+RUN apt-get install -y rsyslog
 ADD . /tmp
 WORKDIR /tmp
 RUN rm -rf cookbooks && \

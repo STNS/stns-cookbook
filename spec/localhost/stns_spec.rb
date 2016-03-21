@@ -139,3 +139,17 @@ end
   end
 end
 
+#
+# no error
+#
+
+log_file = %w(debian ubuntu).include?(os[:family]) ? "syslog" : "messages"
+
+[
+  "grep -e panic -e err /var/log/#{log_file}",
+  "grep -e panic -e err /var/log/stns.log"
+].each do |cmd|
+  describe command(cmd) do
+    its(:exit_status) { should_not eq 0 }
+  end
+end

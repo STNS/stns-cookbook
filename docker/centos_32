@@ -1,4 +1,5 @@
 FROM pyama/centos:6-i386
+RUN yum -y install rsyslog
 ADD . /tmp
 WORKDIR /tmp
 RUN sed -i 's/Defaults    requiretty//g' /etc/sudoers
