@@ -4,18 +4,11 @@ require 'rspec/core/rake_task'
 task :spec    => 'spec:all'
 task :default => :test
 
-task "build" do
+desc "all test"
+task "test" do
   %w(centos ubuntu).each do |o|
     %w(x86 i386).each do |a|
       sh "docker build --rm --no-cache -f docker/#{o}-#{a}  -t #{o}:#{a}-spec ."
-    end
-  end
-end
-
-desc "all test"
-task "test" => [:build]  do
-  %w(centos ubuntu).each do |o|
-    %w(x86 i386).each do |a|
       sh "docker run -t #{o}:#{a}-spec"
     end
   end
