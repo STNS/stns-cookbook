@@ -3,6 +3,6 @@ language: ruby
 services:
     - docker
 script:
-  - mkdir nodes
+  - bundle exec berks vendor vendor/cookbooks
   - bundle exec rake
   - bundle exec rake chef:tests
