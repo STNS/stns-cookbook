@@ -1,7 +1,5 @@
 require 'rake'
 require 'rspec/core/rake_task'
-require 'rake-foodcritic'
-require 'rake-chef-syntax'
 
 task :spec    => 'spec:all'
 task :default => :test
@@ -16,8 +14,12 @@ task "test" do
   end
 end
 
-namespace :chef do
-    task :tests => [:foodcritic, :syntax_check]
+unless ENV['SERVER_SPEC']
+  require 'rake-foodcritic'
+  require 'rake-chef-syntax'
+  namespace :chef do
+      task :tests => [:foodcritic, :syntax_check]
+  end
 end
 
 namespace :spec do

@@ -1,7 +1,7 @@
 sudo: required
 language: ruby
 services:
-    - docker
+  - docker
 script:
   - bundle exec berks vendor vendor/cookbooks
   - bundle exec rake
