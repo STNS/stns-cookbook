@@ -1,15 +1,11 @@
-FROM stns:centos-x86
+FROM pyama/stns:centos-x86
+ENV PATH /root/.rbenv/shims/:$PATH
+ENV SERVER_SPEC 1
 RUN yum -y install curl sudo rsyslog
-ADD . /tmp
-WORKDIR /tmp
+ADD . /tmp/stns
+WORKDIR /tmp/stns
 RUN sed -i 's/Defaults    requiretty//g' /etc/sudoers
-RUN rm -rf cookbooks && \
-mkdir -p cookbooks/stns && \
-mv  attributes cookbooks/stns && \
-mv  recipes cookbooks/stns && \
-mv  templates cookbooks/stns && \
-mv  files cookbooks/stns && \
-mv  metadata.rb cookbooks/stns
-RUN bundle install --path=vendor/bundle --binstubs --without development berks --jobs 4
+RUN sed -i 's/Defaults    secure_path.*//g' /etc/sudoers
+RUN bundle install --path=vendor/bundle --binstubs --gemfile=spec/Gemfile --jobs 4
 RUN chef-client -z -o 'recipe[stns::server],recipe[stns::client]' -E develop-test -c .chef/client.rb
-CMD service rsyslog start;service stns start;service nscd start;bin/rake spec
+CMD service rsyslog start;service stns start;service nscd start;spec/bin/rake spec

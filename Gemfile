@@ -10,6 +10,7 @@ group :berks do
   gem 'berkshelf'
 end
 
-group :test do
-  gem 'serverspec'
+group :syntax do
+  gem 'rake-chef-syntax'
+  gem 'rake-foodcritic'
 end

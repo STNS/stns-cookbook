@@ -1,0 +1,8 @@
+sudo: required
+language: ruby
+services:
+  - docker
+script:
+  - bundle exec berks vendor vendor/cookbooks
+  - bundle exec rake
+  - bundle exec rake chef:tests

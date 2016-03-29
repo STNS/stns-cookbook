@@ -14,6 +14,14 @@ task "test" do
   end
 end
 
+unless ENV['SERVER_SPEC']
+  require 'rake-foodcritic'
+  require 'rake-chef-syntax'
+  namespace :chef do
+      task :tests => [:foodcritic, :syntax_check]
+  end
+end
+
 namespace :spec do
   targets = []
   Dir.glob('./spec/*').each do |dir|
