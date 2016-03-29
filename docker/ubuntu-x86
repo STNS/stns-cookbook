@@ -1,4 +1,4 @@
-FROM stns:ubuntu-x86
+FROM pyama/stns:ubuntu-x86
 RUN apt-get install -y rsyslog
 ADD . /tmp/stns
 WORKDIR /tmp/stns

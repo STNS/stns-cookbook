@@ -12,4 +12,6 @@ end
 
 group :test do
   gem 'serverspec'
+  gem 'rake-chef-syntax'
+  gem 'rake-foodcritic'
 end

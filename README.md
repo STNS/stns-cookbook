@@ -1,5 +1,8 @@
 STNS Cookbook
 ===============
+
+[![Build Status](https://travis-ci.org/STNS/stns-cookbook.svg?branch=master)](https://travis-ci.org/STNS/stns-cookbook)
+
 stns install cookbook
 
 Attributes

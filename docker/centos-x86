@@ -1,4 +1,4 @@
-FROM stns:centos-x86
+FROM pyama/stns:centos-x86
 RUN yum -y install curl sudo rsyslog
 ADD . /tmp/stns
 WORKDIR /tmp/stns
