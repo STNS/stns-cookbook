@@ -2,4 +2,5 @@
 /environments
 /bin
 .bundle
+.rake_tasks
 *.lock
