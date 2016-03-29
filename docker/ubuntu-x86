@@ -2,6 +2,6 @@ FROM pyama/stns:ubuntu-x86
 RUN apt-get install -y rsyslog
 ADD . /tmp/stns
 WORKDIR /tmp/stns
+RUN bundle install --path=vendor/bundle --binstubs --without development berks syntax --jobs 4
 RUN chef-client -z -o 'recipe[stns::server],recipe[stns::client]' -E develop-test -c .chef/client.rb
-RUN bundle install --path=vendor/bundle --binstubs --without development berks --jobs 4
 CMD service rsyslog start;service stns start;service nscd start;bin/rake spec

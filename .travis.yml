@@ -4,3 +4,4 @@ services:
     - docker
 script:
   - bundle exec rake
+  - bundle exec rake chef:tests

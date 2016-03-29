@@ -3,6 +3,6 @@ RUN yum -y install curl sudo rsyslog
 ADD . /tmp/stns
 WORKDIR /tmp/stns
 RUN sed -i 's/Defaults    requiretty//g' /etc/sudoers
-RUN bundle install --path=vendor/bundle --binstubs --without development berks --jobs 4
+RUN bundle install --path=vendor/bundle --binstubs --without development berks syntax --jobs 4
 RUN chef-client -z -o 'recipe[stns::server],recipe[stns::client]' -E develop-test -c .chef/client.rb
 CMD service rsyslog start;service stns start;service nscd start;bin/rake spec
