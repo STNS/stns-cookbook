@@ -1,4 +1,5 @@
 FROM pyama/stns:ubuntu-x86
+ENV PATH /root/.rbenv/shims/:$PATH
 RUN apt-get install -y rsyslog
 ADD . /tmp/stns
 WORKDIR /tmp/stns

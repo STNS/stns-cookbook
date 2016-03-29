@@ -1,8 +1,10 @@
 FROM pyama/stns:centos-i386
+ENV PATH /root/.rbenv/shims/:$PATH
 RUN yum -y install curl sudo rsyslog
 ADD . /tmp/stns
 WORKDIR /tmp/stns
 RUN sed -i 's/Defaults    requiretty//g' /etc/sudoers
+RUN sed -i 's/Defaults    secure_path.*//g' /etc/sudoers
 RUN bundle install --path=vendor/bundle --binstubs --gemfile=spec/Gemfile --jobs 4
 RUN chef-client -z -o 'recipe[stns::server],recipe[stns::client]' -E develop-test -c .chef/client.rb
 CMD service rsyslog start;service stns start;service nscd start;bin/rake spec
