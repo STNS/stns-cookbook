@@ -12,13 +12,13 @@ execute 'install_repo' do
   not_if "test -e #{repo_file}"
 end
 
-if node.environment == "develop-test" && node['platform_family'] == "rhel"
+if node.environment == "develop-test"
   execute 'install_repo' do
     command <<-EOS
     sed -i 's/\$basearch/i386/' /etc/yum.repos.d/stns.repo
     EOS
     only_if "gcc -v 3>&2 2>&1 1>&3 | grep i386"
-  end
+  end if node['platform_family'] == "rhel"
 
   include_recipe 'stns::develop_test'
 end

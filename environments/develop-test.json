@@ -35,6 +35,17 @@
             "id": 1005,
             "group_id": 1005,
             "link_users": ["none"]
+          },
+          {
+            "name": "example6",
+            "id": 1006,
+            "group_id": 1006,
+            "password": "F82C648DF2FB210F205BFBEBFFF9A538CAD9F45B258A3000B8492175EB075B86"
+          },
+          {
+            "name": "example7",
+            "id": 1007,
+            "group_id": 1006
           }
         ],
         "groups": [
@@ -59,12 +70,16 @@
             "name": "test_group5",
             "id": 1005,
             "link_groups": ["none"]
+          },
+          {
+            "name": "sudo_example",
+            "id": 1006
           }
         ],
         "sudoers": [
           {
             "name": "example",
-            "password": "0FD205965CE169B5C023282BB5FA2E239B6716726DB5DEFAA8CEFF225BE805DC"
+            "password": "50D858E0985ECC7F60418AAF0CC5AB587F42C2570A884095A9E8CCACD0F6545C"
           }
         ]
       }

@@ -11,7 +11,7 @@ end
 
 
 files = if os[:family] == 'redhat'
-  if %w(i386 i686).include?(os[:arch])
+  if i386?
     %w(
       /usr/lib/libnss_stns.so
       /lib/security/libpam_stns.so
@@ -25,7 +25,7 @@ files = if os[:family] == 'redhat'
     )
   end
 elsif ['debian', 'ubuntu'].include?(os[:family])
-  if %w(i386 i686).include?(os[:arch])
+  if i386?
     %w(
       /usr/lib/i386-linux-gnu/libnss_stns.so
       /lib/i386-linux-gnu/security/libpam_stns.so

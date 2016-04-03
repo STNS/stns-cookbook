@@ -7,7 +7,6 @@ task :default => :test
 
 desc "all test"
 task "test" do
-  sh "mkdir -p docker/tmp"
   %w(centos ubuntu).each do |o|
     %w(x86 i386).each do |a|
       content = ERB.new(open("docker/#{o}.erb").read).result(binding)
