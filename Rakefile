@@ -1,14 +1,21 @@
 require 'rake'
 require 'rspec/core/rake_task'
+require 'erb'
 
 task :spec    => 'spec:all'
 task :default => :test
 
 desc "all test"
 task "test" do
+  sh "mkdir -p docker/tmp"
   %w(centos ubuntu).each do |o|
     %w(x86 i386).each do |a|
-      sh "docker build --rm --no-cache -f docker/#{o}-#{a}  -t #{o}:#{a}-spec ."
+      content = ERB.new(open("docker/#{o}.erb").read).result(binding)
+      open("docker/tmp/stns_#{o}_#{a}","w") {
+        |f| f.write(content)
+      }
+
+      sh "docker build --rm --no-cache -f docker/tmp/stns_#{o}_#{a} -t #{o}:#{a}-spec ."
       sh "docker run -t #{o}:#{a}-spec"
     end
   end

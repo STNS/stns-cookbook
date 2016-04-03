@@ -1,4 +1,4 @@
-include_recipe 'stns::install_repo'
+include_recipe 'stns'
 include_recipe 'nscd'
 
 service 'nscd' do

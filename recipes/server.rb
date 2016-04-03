@@ -1,4 +1,4 @@
-include_recipe 'stns::install_repo'
+include_recipe 'stns'
 package 'stns'
 
 template '/etc/stns/stns.conf' do
