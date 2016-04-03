@@ -1,0 +1,13 @@
+FROM pyama/stns:ubuntu-<%= a %>
+ENV PATH /root/.rbenv/shims/:$PATH
+ENV SERVER_SPEC 1
+RUN apt-get install -y rsyslog
+ADD . /tmp/stns
+WORKDIR /tmp/stns
+
+RUN sed -i "2i auth      sufficient    libpam_stns.so sudo example" /etc/pam.d/sudo
+RUN sed -i "4i auth        sufficient    libpam_stns.so" /etc/pam.d/common-auth 
+RUN echo '%sudo_example ALL=(ALL) ALL' >> /etc/sudoers
+RUN bundle install --path=vendor/bundle --binstubs --gemfile=spec/Gemfile --jobs 4
+RUN chef-client -z -o 'recipe[stns::server],recipe[stns::client]' -E develop-test -c .chef/client.rb
+CMD service rsyslog start;service stns start;service nscd stat;spec/bin/rake spec

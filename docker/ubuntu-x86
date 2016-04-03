@@ -1,9 +1,0 @@
-FROM pyama/stns:ubuntu-x86
-ENV PATH /root/.rbenv/shims/:$PATH
-ENV SERVER_SPEC 1
-RUN apt-get install -y rsyslog
-ADD . /tmp/stns
-WORKDIR /tmp/stns
-RUN bundle install --path=vendor/bundle --binstubs --gemfile=spec/Gemfile --jobs 4
-RUN chef-client -z -o 'recipe[stns::server],recipe[stns::client]' -E develop-test -c .chef/client.rb
-CMD service rsyslog start;service stns start;service nscd start;spec/bin/rake spec

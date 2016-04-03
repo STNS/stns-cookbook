@@ -3,12 +3,9 @@ include = "<%= node['stns']['server']['include'].to_s %>"
 user = "<%= node['stns']['server']['user'].to_s %>"
 password = "<%= node['stns']['server']['password'].to_s %>"
 
-<% node['stns']['server']['users'].each do |u| -%>
-<%= "[users.#{u['name']}]" %>
+<%- %w(users groups sudoers).each do |c| %>
+  <%- node['stns']['server'][c].each do |u| -%>
+<%= "[#{c}.#{u['name']}]" %>
 <%= u.reject {|k,v| k == 'name'}.map {|k,v| [k, v.inspect].join(' = ') }.join("\n") %>
-<% end unless node['stns']['server']['users'].first.empty? -%>
-
-<% node['stns']['server']['groups'].each do |u| -%>
-<%= "[groups.#{u['name']}]" %>
-<%= u.reject {|k,v| k == 'name'}.map {|k,v| [k, v.inspect].join(' = ') }.join("\n") %>
-<% end unless node['stns']['server']['groups'].first.empty? -%>
+  <% end unless node['stns']['server'][c].first.empty? -%>
+<% end %>
