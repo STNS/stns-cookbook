@@ -1,21 +1,3 @@
-require 'spec_helper'
-
-%w(
-  start
-  restart
-  reload
-  checkconf
-).each do |cmd|
-  describe command("service stns #{cmd}") do
-      its(:exit_status) { should eq 0 }
-  end
-end
-
-describe service('stns') do
-  it { should be_enabled }
-  it { should be_running }
-end
-
 #
 # Normal pattern
 #

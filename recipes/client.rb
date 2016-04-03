@@ -1,4 +1,4 @@
-include_recipe 'stns'
+include_recipe 'stns::install_repo'
 include_recipe 'nscd'
 
 service 'nscd' do
@@ -13,8 +13,3 @@ template '/etc/stns/libnss_stns.conf' do
   group 'root'
 end
 
-cookbook_file '/etc/nsswitch.conf' do
-  mode '644'
-  owner 'root'
-  group 'root'
-end if node.environment == "develop-test"

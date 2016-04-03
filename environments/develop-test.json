@@ -36,8 +36,6 @@
             "group_id": 1005,
             "link_users": ["none"]
           }
-
-
         ],
         "groups": [
           {
@@ -61,6 +59,12 @@
             "name": "test_group5",
             "id": 1005,
             "link_groups": ["none"]
+          }
+        ],
+        "sudoers": [
+          {
+            "name": "example",
+            "password": "0FD205965CE169B5C023282BB5FA2E239B6716726DB5DEFAA8CEFF225BE805DC"
           }
         ]
       }
