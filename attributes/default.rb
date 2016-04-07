@@ -7,7 +7,7 @@ default['stns']['server']['password'] = ""
 
 default['stns']['server']['users'] = [{}]
 default['stns']['server']['groups'] = [{}]
-default['stns']['server']['sudoer'] = [{}]
+default['stns']['server']['sudoers'] = [{}]
 
 default['stns']['client']['api_end_point'] = ['http://localhost:1104']
 default['stns']['client']['user'] = ""
