@@ -5,7 +5,9 @@ service 'nscd' do
   action [:start, :enable]
 end
 
-package 'libnss-stns'
+%w(libnss-stns libpam-stns).each do |p|
+  package p
+end
 
 template '/etc/stns/libnss_stns.conf' do
   mode '644'
