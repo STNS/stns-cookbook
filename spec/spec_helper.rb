@@ -9,7 +9,7 @@ end
 def sudo_auth(user, password)
 <<-EOS
 sudo -u #{user} expect -c \"
-set timeout 1
+set timeout 3
 spawn sudo echo 'sudo success!!!'
 expect {
   default {exit 1}
