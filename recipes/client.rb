@@ -13,5 +13,5 @@ template '/etc/stns/libnss_stns.conf' do
   mode '644'
   owner 'root'
   group 'root'
+  notifies :restart, 'service[nscd]'
 end
-
