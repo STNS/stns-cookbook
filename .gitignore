@@ -1,5 +1,4 @@
 /vendor
-/environments
 /bin
 .bundle
 .rake_tasks
