@@ -22,8 +22,8 @@ task "test" => :all_delete do
         puts "="*20 + " start #{o}-#{a}" + "="*20
         sh "docker build --rm -q --no-cache -f docker/tmp/stns_#{o}_#{a} -t #{o}:#{a}-spec ."
         sh "docker run --privileged -d --name #{o}-#{a}-spec -t #{o}:#{a}-spec /bin/bash"
-        sh "docker exec #{o}-#{a}-spec echo '' > /var/log/messages" if o == 'centos'
-        sh "docker exec #{o}-#{a}-spec echo '' > /var/log/syslog" if o == 'ubuntu'
+        sh "docker exec #{o}-#{a}-spec echo '' > /var/log/messages || true" if o == 'centos'
+        sh "docker exec #{o}-#{a}-spec echo '' > /var/log/syslog || true" if o == 'ubuntu'
 
         %w(develop-test-v1 develop-test-v2).each do |e|
           puts "="*10 + " start #{o}-#{a} #{e}" + "="*10
