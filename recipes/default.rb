@@ -12,7 +12,7 @@ execute 'install_repo' do
   not_if "test -e #{repo_file}"
 end
 
-if node.environment == "develop-test"
+if node.environment =~ /develop-test/
   execute 'install_repo' do
     command <<-EOS
     sed -i 's/\$basearch/i386/' /etc/yum.repos.d/stns.repo

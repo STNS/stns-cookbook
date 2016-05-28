@@ -4,6 +4,9 @@ default['stns']['server']['port'] = 1104
 default['stns']['server']['include'] = "/etc/stns/conf.d/*"
 default['stns']['server']['user'] = ""
 default['stns']['server']['password'] = ""
+default['stns']['server']['salt_enable'] = false
+default['stns']['server']['stretching_number'] = 0
+default['stns']['server']['hash_type'] = "sha256"
 
 default['stns']['server']['users'] = [{}]
 default['stns']['server']['groups'] = [{}]
