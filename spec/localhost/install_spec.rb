@@ -8,8 +8,6 @@ require 'spec_helper'
   end
 end
 
-
-
 files = if os[:family] == 'redhat'
   if i386?
     %w(
