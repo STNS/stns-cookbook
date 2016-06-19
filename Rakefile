@@ -37,7 +37,7 @@ task "test" => :all_delete do
       end
     end
   ensure
-    Rake::Task['all_delete'].execute unless ENV['DEBUB']
+    Rake::Task['all_delete'].execute unless ENV['DEBUG']
   end
 end
 
