@@ -87,7 +87,7 @@ default['stns']['server']['groups'] = [
     <td><tt>['stns']['client']['api_end_point']</tt></td>
     <td>string array</td>
     <td>stns end point</td>
-    <td><tt>[http://localhost:1104]</tt></td>
+    <td><tt>[http://localhost:1104/v2]</tt></td>
   </tr>
   <tr>
     <td><tt>['stns']['client']['user']</tt></td>
@@ -116,8 +116,20 @@ default['stns']['server']['groups'] = [
   <tr>
     <td><tt>['stns']['client']['ssl_verify']</tt></td>
     <td>bool</td>
-    <td>disable ssl verify</td>
+    <td>ssl verify</td>
     <td><tt>true</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['stns']['client']['request_timeout']</tt></td>
+    <td>int</td>
+    <td>wrapper request timeout</td>
+    <td><tt>3</tt></td>
+  </tr>
+  <tr>
+    <td><tt>['stns']['client']['http_proxy']</tt></td>
+    <td>string</td>
+    <td>http proxy url</td>
+    <td><tt></tt></td>
   </tr>
 </table>
 

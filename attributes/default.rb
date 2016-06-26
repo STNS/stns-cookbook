@@ -12,9 +12,9 @@ default['stns']['server']['users'] = [{}]
 default['stns']['server']['groups'] = [{}]
 default['stns']['server']['sudoers'] = [{}]
 
-default['stns']['client']['api_end_point'] = ['http://localhost:1104']
-default['stns']['client']['user'] = ""
-default['stns']['client']['password'] = ""
+default['stns']['client']['api_end_point'] = ['http://localhost:1104/v2']
+default['stns']['client']['user'] = nil
+default['stns']['client']['password'] = nil
 default['stns']['client']['chain_ssh_wrapper'] = nil
 default['stns']['client']['ssl_verify'] = true
 default['stns']['client']['wrapper_path'] = "/usr/local/bin/stns-query-wrapper"
