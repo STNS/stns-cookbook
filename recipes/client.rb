@@ -1,3 +1,8 @@
+chef_gem "toml" do
+  action :install
+  compile_time true if respond_to?(:compile_time)
+end
+
 require 'toml'
 include_recipe 'stns'
 include_recipe 'nscd'
@@ -10,10 +15,10 @@ end
   package p
 end
 
-template '/etc/stns/libnss_stns.conf' do
+file '/etc/stns/libnss_stns.conf' do
   mode '644'
   owner 'root'
   group 'root'
-  variables({ dump: Toml.dump(node['stns']['client']) })
+  content lazy { TOML::Generator.new(node['stns']['client']).body }
   notifies :restart, 'service[nscd]'
 end
