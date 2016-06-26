@@ -1,3 +1,4 @@
+require 'toml'
 include_recipe 'stns'
 include_recipe 'nscd'
 
@@ -13,5 +14,6 @@ template '/etc/stns/libnss_stns.conf' do
   mode '644'
   owner 'root'
   group 'root'
+  variables({ dump: Toml.dump(node['stns']['client']) })
   notifies :restart, 'service[nscd]'
 end

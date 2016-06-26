@@ -8,6 +8,17 @@ require 'spec_helper'
   end
 end
 
+describe file("/etc/stns/libnss_stns.conf") do
+  its(:content) should be_match(%r{api_end_point = ["http://localhost:1104/v2"]})
+  its(:content) should be_match(/user = ""/)
+  its(:content) should be_match(/password = ""/)
+  its(:content) should be_match(/chain_ssh_wrapper = "/)
+  its(:content) should be_match(/ssl_verify = true/)
+  its(:content) should be_match(%r{wrapper_path = "/usr/local/bin/stns-query-wrapper"})
+  its(:content) should be_match(/request_timeout = 3/)
+  its(:content) should be_match(/http_proxy = ""/)
+end
+
 files = if os[:family] == 'redhat'
   if i386?
     %w(
