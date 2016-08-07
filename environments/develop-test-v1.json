@@ -40,7 +40,7 @@
             "name": "example6",
             "id": 1006,
             "group_id": 1006,
-            "password": "F82C648DF2FB210F205BFBEBFFF9A538CAD9F45B258A3000B8492175EB075B86"
+            "password": "$6$RHG4NUGxI8BQkONx$zhJo1yuRozkxx4H6FWoQHmmc8Jlqy4vcLgA/T5XtOj3KMg2tDmuaDLKIqfeQPDoKY0CYFwC8Qf7xHhmpuJ3iX/"
           },
           {
             "name": "example7",
@@ -79,7 +79,7 @@
         "sudoers": [
           {
             "name": "example",
-            "password": "50D858E0985ECC7F60418AAF0CC5AB587F42C2570A884095A9E8CCACD0F6545C"
+            "password": "$6$fBKECL3XEgolZQbs$ZGapccdljvOPH6olEh.l7yN/VeDR5SU30rJu2UfGd1i2eTjNc9zb7/b1gLBjCJKrw7wkEHFSHGWDnTGxbm//n0"
           }
         ]
       }

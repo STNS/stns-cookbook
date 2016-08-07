@@ -45,24 +45,6 @@ Attributes
     <td>groups</td>
     <td><tt>[{}]</tt></td>
   </tr>
-  <tr>
-    <td><tt>['stns']['server']['salt_enable']</tt></td>
-    <td>bool</td>
-    <td>To generate a salt of the password from the user name</td>
-    <td><tt>false</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['stns']['server']['stretching_number']</tt></td>
-    <td>int</td>
-    <td>Stretching number of password</td>
-    <td><tt>false</tt></td>
-  </tr>
-  <tr>
-    <td><tt>['stns']['server']['hash_type']</tt></td>
-    <td>string</td>
-    <td>password hash type(sha256/sha512)</td>
-    <td><tt>sha256</tt></td>
-  </tr>
 </table>
 
 ##### users or groups hash
