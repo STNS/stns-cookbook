@@ -25,7 +25,7 @@ task "test" => :all_delete do
         sh "docker exec #{o}-#{a}-spec echo '' > /var/log/messages || true" if o == 'centos'
         sh "docker exec #{o}-#{a}-spec echo '' > /var/log/syslog || true" if o == 'ubuntu'
 
-        %w(develop-test-v1 develop-test-v2).each do |e|
+        %w(develop-test-v1 develop-test-v2 develop-test-v3).each do |e|
           puts "="*10 + " start #{o}-#{a} #{e}" + "="*10
           sh "docker exec #{o}-#{a}-spec chef-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -E #{e} -c .chef/client.rb"
           sh "docker exec #{o}-#{a}-spec spec/bin/rake spec"
