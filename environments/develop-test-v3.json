@@ -1,10 +1,12 @@
 {
-  "name": "develop-test-1",
+  "name": "develop-test-3",
   "description": "This test environment",
   "override_attributes": {
     "stns": {
       "repo": "https://repo.stns.jp/test",
       "server": {
+        "salt_enable": false,
+        "stretching_number": 0,
         "users": [
           {
             "name": "example1",
@@ -85,7 +87,7 @@
       },
       "client": {
         "api_end_point": [
-          "http://localhost:1104"
+          "http://localhost:1104/v3"
         ]
       }
     }
