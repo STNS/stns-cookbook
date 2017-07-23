@@ -1,10 +1,10 @@
 FROM pyama/stns:centos-<%= a %>
 ENV PATH /root/.rbenv/shims/:$PATH
 ENV SERVER_SPEC 1
+RUN rpm --rebuilddb; yum install -y yum-plugin-ovl
 RUN yum -y install curl sudo rsyslog
 ADD . /tmp/stns
 WORKDIR /tmp/stns
-
 RUN sed -i "2i auth      sufficient    libpam_stns.so sudo example" /etc/pam.d/sudo
 RUN sed -i "4i auth        sufficient    libpam_stns.so" /etc/pam.d/system-auth
 RUN sed -i 's/Defaults    requiretty//g' /etc/sudoers
