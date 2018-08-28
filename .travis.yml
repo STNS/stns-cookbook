@@ -4,5 +4,10 @@ services:
   - docker
 script:
   - bundle exec berks vendor vendor/cookbooks
-  - bundle exec rake
-  - bundle exec rake chef:tests
+  - bundle exec rake ci
+cache:
+  directories:
+    - centos6
+    - centos7
+    - ubuntu16
+    - vendor
