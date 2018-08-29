@@ -1,5 +1,9 @@
 include_recipe 'stns'
-package 'stns-v2'
+
+package 'stns-v2' do
+  retries 3
+  retry_delay 5
+end
 
 template '/etc/stns/server/stns.conf' do
   mode '644'
