@@ -17,7 +17,7 @@ task :ci => [:centos6, :centos7, :ubuntu16, :all_delete]
   task o do
     begin
       sh "docker rm -f stns-cookbook-#{o} || true"
-      sh "docker build -f docker/Dockerfile.#{o} -t stns-cookbook-#{o} ."
+      sh "docker build -q -f docker/Dockerfile.#{o} -t stns-cookbook-#{o} ."
       sh "docker run --privileged -v `pwd`/#{o}:/tmp/stns/#{o} -d --name stns-cookbook-#{o} -t stns-cookbook-#{o} /bin/bash"
       sh "docker exec stns-cookbook-#{o} bash -l -c 'bundle install --without syntax --path=/tmp/stns/#{o}/bundle --binstubs --jobs 4'"
       sh "docker exec stns-cookbook-#{o} chef-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -c .chef/client.rb"
