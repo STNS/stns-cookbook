@@ -1,0 +1,18 @@
+FROM centos:7
+RUN yum -y install git gcc glibc openssl-devel readline-devel zlib-devel sudo bzip2 make initscripts curl
+
+# Install rbenv and ruby-build
+RUN git clone https://github.com/sstephenson/rbenv.git /root/.rbenv
+RUN git clone https://github.com/sstephenson/ruby-build.git /root/.rbenv/plugins/ruby-build
+RUN /root/.rbenv/plugins/ruby-build/install.sh
+ENV PATH /root/.rbenv/bin:$PATH
+RUN echo 'eval "$(rbenv init -)"' >> /etc/profile.d/rbenv.sh # or /etc/profile
+ENV CONFIGURE_OPTS --disable-install-doc
+RUN rbenv install 2.5.1
+RUN echo 'gem: --no-rdoc --no-ri' >> /.gemrc
+RUN rbenv global 2.5.1 && rbenv exec gem install bundler && rbenv rehash
+
+RUN yum install -y https://packages.chef.io/files/stable/chef/14.3.37/el/7/chef-14.3.37-1.el7.x86_64.rpm
+
+ADD . /tmp/stns
+WORKDIR /tmp/stns

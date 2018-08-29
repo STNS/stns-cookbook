@@ -115,10 +115,6 @@ default['stns']['server']['groups'] = [
   </tr>
 </table>
 
-#### ref cookbooks
-* [nscd](https://github.com/chef-cookbooks/nscd)
-
-
 Contributing
 ------------
 1. Fork the repository on Github

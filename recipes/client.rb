@@ -6,20 +6,18 @@ end
 
 require 'toml'
 include_recipe 'stns'
-include_recipe 'nscd'
 
-service 'nscd' do
-  action [:start, :enable]
-end
+package 'epel-release' if %w(rhel fedora).include?(node['platform_family'])
 
-%w(libnss-stns libpam-stns).each do |p|
+%w(
+  libnss-stns-v2
+).each do |p|
   package p
 end
 
-file '/etc/stns/libnss_stns.conf' do
+file '/etc/stns/client/stns.conf' do
   mode '644'
   owner 'root'
   group 'root'
   content lazy { TOML::Generator.new(node['stns']['client']).body }
-  notifies :restart, 'service[nscd]'
 end

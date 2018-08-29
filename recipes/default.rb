@@ -1,24 +1,23 @@
+%w(curl sudo).each do |n|
+  package n
+end
+
+c = nil
 case node['platform_family']
 when "rhel", "fedora"
-  shell = 'yum-repo.sh'
-  repo_file = '/etc/yum.repos.d/stns.repo'
+  yum_repository 'stns' do
+    description "stns"
+    baseurl "https://repo.stns.jp/centos/$basearch"
+    gpgkey 'https://repo.stns.jp/gpg/GPG-KEY-stns'
+    action :create
+  end
 when 'debian', 'ubuntu'
-  shell = 'apt-repo.sh'
-  repo_file = '/etc/apt/sources.list.d/stns.list'
+  apt_repository 'stns' do
+    uri 'http://repo.stns.jp/debian/'
+    distribution 'stns'
+    components ["main"]
+    key 'https://repo.stns.jp/gpg/GPG-KEY-stns'
+    action :add
+  end
 end
 
-execute 'install_repo' do
-  command "curl -fsSL #{node['stns']['repo']}/scripts/#{shell} | sh"
-  not_if "test -e #{repo_file}"
-end
-
-if node.environment =~ /develop-test/
-  execute 'install_repo' do
-    command <<-EOS
-    sed -i 's/\$basearch/i386/' /etc/yum.repos.d/stns.repo
-    EOS
-    only_if "gcc -v 3>&2 2>&1 1>&3 | grep i386"
-  end if node['platform_family'] == "rhel"
-
-  include_recipe 'stns::develop_test'
-end

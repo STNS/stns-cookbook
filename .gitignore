@@ -4,7 +4,6 @@
 .rake_tasks
 *.lock
 .chef/local-mode-cache
-spec/vendor
-spec/bin
-docker/tmp/*
 !.gitkeep
+centos*
+ubuntu**

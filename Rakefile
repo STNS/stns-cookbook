@@ -10,50 +10,28 @@ task :spec    => 'spec:all'
 task :default => :test
 
 desc "all test"
-task "test" => :all_delete do
-  begin
-    %w(centos ubuntu).each do |o|
-      %w(x86 i386).each do |a|
-        content = ERB.new(open("docker/#{o}.erb").read).result(binding)
-        open("docker/tmp/stns_#{o}_#{a}","w") {
-          |f| f.write(content)
-        }
+task :ci => [:centos6, :centos7, :ubuntu16, :all_delete]
 
-        puts "="*20 + " start #{o}-#{a}" + "="*20
-        sh "docker build --rm -q --no-cache -f docker/tmp/stns_#{o}_#{a} -t #{o}:#{a}-spec ."
-        sh "docker run --privileged -d --name #{o}-#{a}-spec -t #{o}:#{a}-spec /bin/bash"
-        sh "docker exec #{o}-#{a}-spec echo '' > /var/log/messages || true" if o == 'centos'
-        sh "docker exec #{o}-#{a}-spec echo '' > /var/log/syslog || true" if o == 'ubuntu'
-
-        %w(develop-test-v1 develop-test-v2 develop-test-v3).each do |e|
-          puts "="*10 + " start #{o}-#{a} #{e}" + "="*10
-          sh "docker exec #{o}-#{a}-spec chef-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -E #{e} -c .chef/client.rb"
-          sh "docker exec #{o}-#{a}-spec spec/bin/rake spec"
-          puts "="*10 + " end #{o}-#{a} #{e}" + "="*10
-        end
-        sh "docker rm -f #{o}-#{a}-spec"
-
-        puts "="*20 + " end #{o}-#{a}" + "="*20
-      end
+%w(centos6 centos7 ubuntu16).each do |o|
+  desc "#{o} test"
+  task o do
+    begin
+      sh "docker rm -f stns-cookbook-#{o} || true"
+      sh "docker build -q -f docker/Dockerfile.#{o} -t stns-cookbook-#{o} ."
+      sh "docker run --privileged -v `pwd`/#{o}:/tmp/stns/#{o} -d --name stns-cookbook-#{o} -t stns-cookbook-#{o} /bin/bash"
+      sh "docker exec stns-cookbook-#{o} bash -l -c 'bundle install --without syntax --path=/tmp/stns/#{o}/bundle --binstubs --jobs 4'"
+      sh "docker exec stns-cookbook-#{o} chef-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -c .chef/client.rb"
+      sh "docker exec stns-cookbook-#{o} bash -l -c 'bin/rake spec'"
+      sh "docker rm -f stns-cookbook-#{o}"
+    ensure
+      Rake::Task['all_delete'].execute unless ENV['DEBUG']
     end
-  ensure
-    Rake::Task['all_delete'].execute unless ENV['DEBUG']
   end
 end
 
 task :all_delete do
-  %w(centos ubuntu).each do |o|
-    %w(x86 i386).each do |a|
-      sh "docker rm -f #{o}-#{a}-spec || true"
-    end
-  end
-end
-
-unless ENV['SERVER_SPEC']
-  require 'rake-foodcritic'
-  require 'rake-chef-syntax'
-  namespace :chef do
-      task :tests => [:foodcritic, :syntax_check]
+  %w(centos6).each do |o|
+    sh "docker rm -f stns-cookbook-#{o} || true"
   end
 end
 

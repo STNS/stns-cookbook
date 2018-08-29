@@ -1,14 +1,18 @@
 include_recipe 'stns'
-package 'stns'
 
-template '/etc/stns/stns.conf' do
+package 'stns-v2' do
+  retries 3
+  retry_delay 10
+end
+
+template '/etc/stns/server/stns.conf' do
   mode '644'
   owner 'root'
   group 'root'
   notifies :restart, 'service[stns]'
 end
 
-directory '/etc/stns/conf.d' do
+directory '/etc/stns/server/conf.d' do
   mode '755'
   owner 'root'
   group 'root'
