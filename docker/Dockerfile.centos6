@@ -1,5 +1,5 @@
 FROM centos:6
-RUN yum -y install git gcc glibc openssl-devel readline-devel zlib-devel sudo
+RUN yum -y install git gcc glibc openssl-devel readline-devel zlib-devel sudo curl
 
 # Install rbenv and ruby-build
 RUN git clone https://github.com/sstephenson/rbenv.git /root/.rbenv
