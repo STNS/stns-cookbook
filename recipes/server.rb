@@ -2,7 +2,7 @@ include_recipe 'stns'
 
 package 'stns-v2' do
   retries 3
-  retry_delay 5
+  retry_delay 10
 end
 
 template '/etc/stns/server/stns.conf' do
