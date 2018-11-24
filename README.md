@@ -66,10 +66,10 @@ default['stns']['server']['groups'] = [
     <th>Default</th>
   </tr>
   <tr>
-    <td><tt>['stns']['client']['api_end_point']</tt></td>
-    <td>string array</td>
+    <td><tt>['stns']['client']['api_endpoint']</tt></td>
+    <td>string</td>
     <td>stns end point</td>
-    <td><tt>[http://localhost:1104/v2]</tt></td>
+    <td><tt>http://localhost:1104/v2</tt></td>
   </tr>
   <tr>
     <td><tt>['stns']['client']['user']</tt></td>
