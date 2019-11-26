@@ -12,12 +12,22 @@ when "rhel", "fedora"
     action :create
   end
 when 'debian', 'ubuntu'
-  apt_repository 'stns' do
-    uri 'http://repo.stns.jp/debian/'
-    distribution 'stns'
-    components ["main"]
-    key 'https://repo.stns.jp/gpg/GPG-KEY-stns'
-    action :add
+  if %w(xenial bionic).include?(node['lsb']['codename'])
+    apt_repository 'stns' do
+      uri "http://repo.stns.jp/#{node['lsb']['codename']}"
+      distribution 'stns'
+      components [node['lsb']['codename']]
+      key 'https://repo.stns.jp/gpg/GPG-KEY-stns'
+      action :add
+    end
+  else
+    apt_repository 'stns' do
+      uri 'http://repo.stns.jp/debian/'
+      distribution 'stns'
+      components ["main"]
+      key 'https://repo.stns.jp/gpg/GPG-KEY-stns'
+      action :add
+    end
   end
 end
 
