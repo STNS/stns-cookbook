@@ -7,7 +7,7 @@ case node['platform_family']
 when "rhel", "fedora"
   yum_repository 'stns' do
     description "stns"
-    baseurl "https://repo.stns.jp/centos/$basearch"
+    baseurl "https://repo.stns.jp/centos/$basearch/$releasever"
     gpgkey 'https://repo.stns.jp/gpg/GPG-KEY-stns'
     action :create
   end
