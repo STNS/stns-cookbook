@@ -25,4 +25,5 @@ file '/etc/stns/client/stns.conf' do
   owner 'root'
   group 'root'
   content lazy { TOML::Generator.new(node['stns']['client']).body }
+  notifies :restart, 'service[cache-stnsd]'
 end
