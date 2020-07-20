@@ -11,7 +11,7 @@ task :default => :test
 
 support_os = %w(centos6 centos7 ubuntu16 ubuntu18)
 desc "all test"
-task :ci => support_os.map(&:to_sym) << ':all_delete'
+task :ci => support_os.map(&:to_sym) << :all_delete
 
 support_os.each do |o|
   desc "#{o} test"
@@ -19,9 +19,9 @@ support_os.each do |o|
     begin
       sh "docker rm -f stns-cookbook-#{o} || true"
       sh "docker build -q -f docker/Dockerfile.#{o} -t stns-cookbook-#{o} ."
-      sh "docker run --privileged -v `pwd`:/tmp/stns -d --name stns-cookbook-#{o} -t stns-cookbook-#{o} /sbin/init"
-      sh "docker exec -it stns-cookbook-#{o} bash -l -c 'bundle update --bundler && bundle install --without syntax --path=/tmp/stns/#{o}/bundle --binstubs --jobs 4'"
-      sh "docker exec -it stns-cookbook-#{o} bash -l -c \"/opt/chef/embedded/bin/gem install bundler -N && chef-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -c .chef/client.rb\""
+      sh "docker run --privileged -v `pwd`/#{o}:/opt/#{o} -d --name stns-cookbook-#{o} -t stns-cookbook-#{o} /sbin/init"
+      sh "docker exec -t stns-cookbook-#{o} bash -l -c 'bundle update --bundler && bundle install --without syntax --path=/opt/#{o}/bundle --binstubs --jobs 4'"
+      sh "docker exec -t stns-cookbook-#{o} bash -l -c \"/opt/chef/embedded/bin/gem install bundler -N && chef-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -c .chef/client.rb\""
       sh "docker exec stns-cookbook-#{o} bash -l -c 'bin/rake spec'"
       sh "docker rm -f stns-cookbook-#{o}"
     ensure
