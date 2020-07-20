@@ -30,7 +30,6 @@ end
 %w(
   start
   restart
-  reload
 ).each do |cmd|
   describe command("service stns #{cmd}") do
       its(:exit_status) { should eq 0 }
