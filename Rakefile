@@ -6,6 +6,10 @@ def log_level
   ENV['DEBUG'] ? 'info' : 'error'
 end
 
+def tty
+  `uname -a | grep -i darwin`.empty? ? nil : '-it'
+end
+
 task :spec    => 'spec:all'
 task :default => :test
 
@@ -20,9 +24,9 @@ support_os.each do |o|
       sh "docker rm -f stns-cookbook-#{o} || true"
       sh "docker build -q -f docker/Dockerfile.#{o} -t stns-cookbook-#{o} ."
       sh "docker run --privileged -v `pwd`/#{o}:/opt/#{o} -d --name stns-cookbook-#{o} -t stns-cookbook-#{o} /sbin/init"
-      sh "docker exec -t stns-cookbook-#{o} bash -l -c 'bundle update --bundler && bundle install --without syntax --path=/opt/#{o}/bundle --binstubs --jobs 4'"
-      sh "docker exec -t stns-cookbook-#{o} bash -l -c \"/opt/chef/embedded/bin/gem install bundler -N && chef-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -c .chef/client.rb\""
-      sh "docker exec stns-cookbook-#{o} bash -l -c 'bin/rake spec'"
+      sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c 'bundle update --bundler && bundle install --without syntax --path=/opt/#{o}/bundle --binstubs --jobs 4'"
+      sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c \"/opt/chef/embedded/bin/gem install bundler -N && chef-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -c .chef/client.rb\""
+      sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c 'bin/rake spec'"
       sh "docker rm -f stns-cookbook-#{o}"
     ensure
       Rake::Task['all_delete'].execute unless ENV['DEBUG']
