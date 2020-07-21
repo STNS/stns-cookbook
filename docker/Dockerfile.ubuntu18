@@ -19,6 +19,3 @@ RUN rbenv global $RUBY_VERSION && rbenv exec gem install bundler && rbenv rehash
 
 RUN wget https://packages.chef.io/files/stable/chef/$CHEF_VERSION/ubuntu/18.04/chef_$CHEF_VERSION-1_amd64.deb
 RUN dpkg -i chef_$CHEF_VERSION-1_amd64.deb
-
-ADD . /tmp/stns
-WORKDIR /tmp/stns
