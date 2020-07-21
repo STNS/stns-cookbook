@@ -2,3 +2,4 @@ vendor/bundle
 centos*
 ubuntu*
 .bundle
+.chef/local-mode-cache
