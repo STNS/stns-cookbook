@@ -1,5 +1,5 @@
-FROM ubuntu:xenial
-RUN apt-get update -qqy && apt -qqy install git build-essential libreadline6-dev zlib1g-dev libssl-dev sudo wget curl
+FROM ubuntu:bionic
+RUN apt-get update -qqy && apt -qqy install git build-essential libreadline6-dev zlib1g-dev libssl-dev sudo wget curl systemd
 
 # Install rbenv and ruby-build
 RUN git clone https://github.com/sstephenson/rbenv.git /root/.rbenv
@@ -17,5 +17,5 @@ RUN rbenv install $RUBY_VERSION
 RUN echo 'gem: --no-rdoc --no-ri' >> /.gemrc
 RUN rbenv global $RUBY_VERSION && rbenv exec gem install bundler && rbenv rehash
 
-RUN wget https://packages.chef.io/files/stable/chef/$CHEF_VERSION/ubuntu/16.04/chef_$CHEF_VERSION-1_amd64.deb
+RUN wget https://packages.chef.io/files/stable/chef/$CHEF_VERSION/ubuntu/18.04/chef_$CHEF_VERSION-1_amd64.deb
 RUN dpkg -i chef_$CHEF_VERSION-1_amd64.deb

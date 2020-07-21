@@ -8,11 +8,11 @@ RUN /root/.rbenv/plugins/ruby-build/install.sh
 ENV PATH /root/.rbenv/bin:$PATH
 RUN echo 'eval "$(rbenv init -)"' >> /etc/profile.d/rbenv.sh # or /etc/profile
 ENV CONFIGURE_OPTS --disable-install-doc
-RUN rbenv install 2.5.1
+
+ENV RUBY_VERSION 2.5.1
+ENV CHEF_VERSION 14.15.6
+RUN rbenv install $RUBY_VERSION
 RUN echo 'gem: --no-rdoc --no-ri' >> /.gemrc
-RUN rbenv global 2.5.1 && rbenv exec gem install bundler && rbenv rehash
+RUN rbenv global $RUBY_VERSION && rbenv exec gem install bundler && rbenv rehash
 
-RUN yum install -y https://packages.chef.io/files/stable/chef/13.10.4/el/6/chef-13.10.4-1.el6.x86_64.rpm
-
-ADD . /tmp/stns
-WORKDIR /tmp/stns
+RUN yum install -y https://packages.chef.io/files/stable/chef/$CHEF_VERSION/el/6/chef-$CHEF_VERSION-1.el6.x86_64.rpm

@@ -11,8 +11,13 @@ package 'epel-release' if %w(rhel fedora).include?(node['platform_family'])
 
 %w(
   libnss-stns-v2
+  cache-stnsd
 ).each do |p|
   package p
+end
+
+service 'cache-stnsd' do
+  action %w(start enable)
 end
 
 file '/etc/stns/client/stns.conf' do
@@ -20,4 +25,5 @@ file '/etc/stns/client/stns.conf' do
   owner 'root'
   group 'root'
   content lazy { TOML::Generator.new(node['stns']['client']).body }
+  notifies :restart, 'service[cache-stnsd]'
 end

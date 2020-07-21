@@ -6,32 +6,39 @@ def log_level
   ENV['DEBUG'] ? 'info' : 'error'
 end
 
+def tty
+  `uname -a | grep -i darwin`.empty? ? nil : '-it'
+end
+
 task :spec    => 'spec:all'
 task :default => :test
 
+support_os = %w(centos6 centos7 ubuntu16 ubuntu18)
 desc "all test"
-task :ci => [:centos6, :centos7, :ubuntu16, :all_delete]
+task :ci => support_os.map(&:to_sym) << :all_delete
 
-%w(centos6 centos7 ubuntu16).each do |o|
+support_os.each do |o|
   desc "#{o} test"
   task o do
     begin
+      sh "sudo chown -R $USER:$USER /home/runner/work/stns-cookbook" if ENV['CI']
       sh "docker rm -f stns-cookbook-#{o} || true"
       sh "docker build -q -f docker/Dockerfile.#{o} -t stns-cookbook-#{o} ."
-      sh "docker run --privileged -v `pwd`/#{o}:/tmp/stns/#{o} -d --name stns-cookbook-#{o} -t stns-cookbook-#{o} /bin/bash"
-      sh "docker exec stns-cookbook-#{o} bash -l -c 'bundle update --bundler && bundle install --without syntax --path=/tmp/stns/#{o}/bundle --binstubs --jobs 4'"
-      sh "docker exec stns-cookbook-#{o} bash -l -c \"/opt/chef/embedded/bin/gem install bundler -N && chef-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -c .chef/client.rb\""
-      sh "docker exec stns-cookbook-#{o} bash -l -c 'bin/rake spec'"
+      sh "docker run --privileged -v `pwd`:/opt/stns -v /tmp/#{o}:/opt/bundle/#{o} -w /opt/stns -d --name stns-cookbook-#{o} stns-cookbook-#{o} /sbin/init"
+      sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c 'bundle update --bundler && bundle install --without syntax --path=/opt/bundle/#{o} --binstubs --jobs 4'"
+      sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c \"/opt/chef/embedded/bin/gem install bundler -N && chef-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -c .chef/client.rb\""
+      sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c 'bin/rake spec'"
       sh "docker rm -f stns-cookbook-#{o}"
     ensure
+      sh "rm -rf .bundle" unless `uname -a | grep -i darwin`.empty?
       Rake::Task['all_delete'].execute unless ENV['DEBUG']
     end
   end
 end
 
 task :all_delete do
-  %w(centos6).each do |o|
-    sh "docker rm -f stns-cookbook-#{o} || true"
+  %w(centos6 centos7 ubuntu16 ubuntu18).each do |o|
+    sh "docker rm -f stns-cookbook-#{o} | true"
   end
 end
 
