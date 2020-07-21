@@ -21,6 +21,7 @@ support_os.each do |o|
   desc "#{o} test"
   task o do
     begin
+      sh "sudo chown -R $USER:$USER /home/runner/work/stns-cookbook" if ENV['CI']
       sh "docker rm -f stns-cookbook-#{o} || true"
       sh "docker build -q -f docker/Dockerfile.#{o} -t stns-cookbook-#{o} ."
       sh "docker run --privileged -v `pwd`:/opt/stns -v /tmp/#{o}:/opt/bundle/#{o} -w /opt/stns -d --name stns-cookbook-#{o} stns-cookbook-#{o} /sbin/init"
