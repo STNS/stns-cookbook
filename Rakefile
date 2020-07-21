@@ -29,7 +29,7 @@ support_os.each do |o|
       sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c 'bin/rake spec'"
       sh "docker rm -f stns-cookbook-#{o}"
     ensure
-      sh "rm -rf .bundle"
+      sh "rm -rf .bundle" unless `uname -a | grep -i darwin`.empty?
       Rake::Task['all_delete'].execute unless ENV['DEBUG']
     end
   end
