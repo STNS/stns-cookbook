@@ -1,11 +1,15 @@
 port = <%= node['stns']['server']['port'].to_i %>
 include = "<%= node['stns']['server']['include'].to_s %>"
-user = "<%= node['stns']['server']['user'].to_s %>"
-password = "<%= node['stns']['server']['password'].to_s %>"
 
 <%- %w(users groups).each do |c| %>
   <%- node['stns']['server'][c].each do |u| -%>
 <%= "[#{c}.#{u['name']}]" %>
 <%= u.reject {|k,v| k == 'name'}.map {|k,v| [k, v.inspect].join(' = ') }.join("\n") %>
   <% end unless node['stns']['server'][c].first.empty? -%>
+<% end %>
+
+<% if node['stns']['server']['user'] && node['stns']['server']['password'] %>
+[basic_auth]
+user = "<%= node['stns']['server']['user'].to_s %>"
+password = "<%= node['stns']['server']['password'].to_s %>"
 <% end %>
