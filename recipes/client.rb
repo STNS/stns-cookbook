@@ -22,10 +22,11 @@ service 'cache-stnsd' do
   action %w(start enable)
 end
 
+deleted_package = node['stns']['client'].delete("package")
 file '/etc/stns/client/stns.conf' do
   mode '644'
   owner 'root'
   group 'root'
-  content lazy { TOML::Generator.new(node['stns']['client']).body }
+  content lazy { TOML::Generator.new(deleted_package).body }
   notifies :restart, 'service[cache-stnsd]'
 end
