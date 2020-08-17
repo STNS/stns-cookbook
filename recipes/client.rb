@@ -13,7 +13,9 @@ package 'epel-release' if %w(rhel fedora).include?(node['platform_family'])
   libnss-stns-v2
   cache-stnsd
 ).each do |p|
-  package p
+  package p do
+    action node['stns']['client']['package']['action']
+  end
 end
 
 service 'cache-stnsd' do
