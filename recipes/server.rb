@@ -6,13 +6,6 @@ package 'stns-v2' do
   action node['stns']['server']['package']['action']
 end
 
-template '/etc/stns/server/stns.conf' do
-  mode '644'
-  owner 'root'
-  group 'root'
-  notifies :restart, 'service[stns]'
-end
-
 directory '/etc/stns/server/conf.d' do
   mode '755'
   owner 'root'
@@ -21,4 +14,13 @@ end
 
 service 'stns' do
   action [:enable]
+end
+h = node['stns']['server'].dup
+h.delete("package")
+file '/etc/stns/server/stns.conf' do
+  mode '644'
+  owner 'root'
+  group 'root'
+  content lazy { TOML::Generator.new(h).body }
+  notifies :restart, 'service[stns]'
 end

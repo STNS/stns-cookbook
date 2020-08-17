@@ -2,12 +2,9 @@
 default['stns']['repo'] = 'https://repo.stns.jp'
 default['stns']['server']['port'] = 1104
 default['stns']['server']['include'] = "/etc/stns/conf.d/*"
-default['stns']['server']['user'] = ""
-default['stns']['server']['password'] = ""
+default['stns']['server']['basic_auth']['user'] = nil
+default['stns']['server']['basic_auth']['password'] = nil
 
-default['stns']['server']['users'] = [{}]
-default['stns']['server']['groups'] = [{}]
-default['stns']['server']['sudoers'] = [{}]
 default['stns']['server']['package']['action']= :install
 
 default['stns']['client']['api_endpoint'] = 'http://localhost:1104/v1'
