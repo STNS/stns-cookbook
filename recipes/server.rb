@@ -13,7 +13,7 @@ directory '/etc/stns/server/conf.d' do
 end
 
 service 'stns-v2' do
-  action [:enable]
+  action [:enable, :start]
 end
 h = node['stns']['server'].dup
 h.delete("package")
