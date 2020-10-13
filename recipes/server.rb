@@ -22,5 +22,5 @@ file '/etc/stns/server/stns.conf' do
   owner 'root'
   group 'root'
   content lazy { TOML::Generator.new(h).body }
-  notifies :restart, 'service[stns]'
+  notifies :restart, 'service[stns-v2]'
 end
