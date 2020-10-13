@@ -31,7 +31,7 @@ end
   start
   restart
 ).each do |cmd|
-  describe command("service stns #{cmd}") do
+  describe command("service stns-v2 #{cmd}") do
       its(:exit_status) { should eq 0 }
   end
 end
