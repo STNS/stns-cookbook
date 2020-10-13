@@ -12,7 +12,7 @@ directory '/etc/stns/server/conf.d' do
   group 'root'
 end
 
-service 'stns' do
+service 'stns-v2' do
   action [:enable]
 end
 h = node['stns']['server'].dup
