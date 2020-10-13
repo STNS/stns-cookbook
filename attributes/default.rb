@@ -5,7 +5,8 @@ default['stns']['server']['include'] = "/etc/stns/conf.d/*"
 default['stns']['server']['basic_auth']['user'] = nil
 default['stns']['server']['basic_auth']['password'] = nil
 
-default['stns']['server']['package']['action']= :install
+default['stns']['server']['package']['action'] = :install
+default['stns']['server']['service']['action'] = %w(enable start)
 
 default['stns']['client']['api_endpoint'] = 'http://localhost:1104/v1'
 default['stns']['client']['user'] = nil

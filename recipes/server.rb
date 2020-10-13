@@ -12,9 +12,10 @@ directory '/etc/stns/server/conf.d' do
   group 'root'
 end
 
-service 'stns-v2' do
-  action [:enable, :start]
+service 'stns' do
+  action node['stns']['server']['service']['action']
 end
+
 h = node['stns']['server'].dup
 h.delete("package")
 file '/etc/stns/server/stns.conf' do
@@ -22,5 +23,5 @@ file '/etc/stns/server/stns.conf' do
   owner 'root'
   group 'root'
   content lazy { TOML::Generator.new(h).body }
-  notifies :restart, 'service[stns-v2]'
+  notifies :restart, 'service[stns]'
 end
