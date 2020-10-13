@@ -36,7 +36,7 @@ end
   end
 end
 
-describe service('stns') do
+describe service('stns-v2') do
   it { should be_enabled }
   it { should be_running }
 end
