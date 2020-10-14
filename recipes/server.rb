@@ -18,6 +18,7 @@ end
 
 h = node['stns']['server'].dup
 h.delete("package")
+h.delete("service")
 file '/etc/stns/server/stns.conf' do
   mode '644'
   owner 'root'
