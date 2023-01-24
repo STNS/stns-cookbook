@@ -9,7 +9,6 @@ ensure
   Chef::Config[:why_run] = whyrun_config
 end
 
-require 'toml'
 include_recipe 'stns'
 
 package 'epel-release' if %w[rhel fedora].include?(node['platform_family'])
