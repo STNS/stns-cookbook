@@ -3,13 +3,12 @@ begin
   Chef::Config[:why_run] = false
   chef_gem 'toml' do
     action :install
-    compile_time true if respond_to?(:compile_time)
+    compile_time true
   end
 ensure
   Chef::Config[:why_run] = whyrun_config
 end
 
-chef_gem 'toml'
 require 'toml'
 include_recipe 'stns'
 

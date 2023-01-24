@@ -6,5 +6,3 @@ source_url        'https://github.com/STNS/stns-cookbook/'
 license          'All rights reserved'
 description      'Installs/Configures stns'
 version          '0.2.1'
-
-gem 'toml'
