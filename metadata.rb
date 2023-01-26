@@ -7,4 +7,4 @@ license          'All rights reserved'
 description      'Installs/Configures stns'
 version          '0.2.1'
 
-gem 'toml'
+gem 'toml-rb'
