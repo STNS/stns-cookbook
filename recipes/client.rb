@@ -32,6 +32,6 @@ file '/etc/stns/client/stns.conf' do
   mode '644'
   owner 'root'
   group 'root'
-  content lazy { TomlRB.dump(h) }
+  content lazy { TomlRB.dump(h.compact) }
   notifies :restart, 'service[cache-stnsd]'
 end

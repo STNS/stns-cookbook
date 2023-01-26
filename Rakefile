@@ -13,7 +13,7 @@ end
 task :spec    => 'spec:all'
 task :default => :test
 
-support_os = %w(centos6 centos7 ubuntu16 ubuntu18)
+support_os = %w(ubuntu22)
 desc "all test"
 task :ci => support_os.map(&:to_sym) << :all_delete
 
@@ -23,7 +23,7 @@ support_os.each do |o|
     begin
       sh "sudo chown -R $USER:$USER /home/runner/work/stns-cookbook" if ENV['CI']
       sh "docker rm -f stns-cookbook-#{o} || true"
-      sh "docker build -q -f docker/Dockerfile.#{o} -t stns-cookbook-#{o} ."
+      sh "docker build -q --build-arg CHEF_VERSION=18.1.0 -f docker/Dockerfile.#{o} -t stns-cookbook-#{o} ."
       sh "docker run --privileged -v `pwd`:/opt/stns -v /tmp/#{o}:/opt/bundle/#{o} -w /opt/stns -d --name stns-cookbook-#{o} stns-cookbook-#{o} /sbin/init"
       sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c 'bundle update --bundler && bundle install --without syntax --path=/opt/bundle/#{o} --binstubs --jobs 4'"
       sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c \"/opt/chef/embedded/bin/gem install bundler -N && chef-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -c .chef/client.rb\""
@@ -37,7 +37,7 @@ support_os.each do |o|
 end
 
 task :all_delete do
-  %w(centos6 centos7 ubuntu16 ubuntu18).each do |o|
+  %w(ubuntu22).each do |o|
     sh "docker rm -f stns-cookbook-#{o} | true"
   end
 end
