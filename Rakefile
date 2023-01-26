@@ -25,8 +25,8 @@ support_os.each do |o|
       sh "docker rm -f stns-cookbook-#{o} || true"
       sh "docker build -q --build-arg CHEF_VERSION=18.1.0 -f docker/Dockerfile.#{o} -t stns-cookbook-#{o} ."
       sh "docker run --privileged -v `pwd`:/opt/stns -v /tmp/#{o}:/opt/bundle/#{o} -w /opt/stns -d --name stns-cookbook-#{o} stns-cookbook-#{o} /sbin/init"
-      sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c 'bundle update --bundler && bundle install --without syntax --path=/opt/bundle/#{o} --binstubs --jobs 4'"
-      sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c \"/opt/chef/embedded/bin/gem install bundler -N && chef-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -c .chef/client.rb\""
+      sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c 'bundle install --without syntax --path=/opt/bundle/#{o} --binstubs --jobs 4'"
+      sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c \"cinc-client -z -l #{log_level} -o 'recipe[stns::server],recipe[stns::client]' -c .chef/client.rb\""
       sh "docker exec #{tty} stns-cookbook-#{o} bash -l -c 'bin/rake spec'"
       sh "docker rm -f stns-cookbook-#{o}"
     ensure

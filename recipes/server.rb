@@ -23,6 +23,6 @@ file '/etc/stns/server/stns.conf' do
   mode '644'
   owner 'root'
   group 'root'
-  content lazy { TOML::Generator.new(h).body }
+  content lazy { TomlRB.dump(h.compact) }
   notifies :restart, 'service[stns]'
 end
